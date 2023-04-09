@@ -86,5 +86,94 @@ namespace DataGenerator.Helpers
                 await dbConnection.CloseAsync();
             }
         }
+
+        public static async Task<List<Seller>> GetSellersAsync()
+        {
+            List<Seller> sellers = new();
+
+            if (await ConnectionWasEstablished())
+            {
+                await dbConnection.OpenAsync();
+                await dbConnection.ChangeDatabaseAsync(config.CatalogName);
+                string query = "SELECT * FROM Sellers";
+                SqlCommand command = new SqlCommand(query, dbConnection);
+                SqlDataReader reader = await command.ExecuteReaderAsync();
+
+                while (await reader.ReadAsync())
+                {
+                    sellers.Add(new()
+                    {
+                        SellerId = reader.GetInt32(0),
+                        FirstName = reader.GetString(1),
+                        LastName = reader.GetString(2),
+                        AdmissionDate = reader.GetDateTime(3),
+                        EgressDate = reader.IsDBNull(4) ? null : reader.GetDateTime(4),
+                    });
+                }
+            }
+            else
+                return new();
+
+            return sellers;
+        }
+
+        public static async Task<List<Product>> GetProductsAsync()
+        {
+            List<Product> products = new();
+
+            if (await ConnectionWasEstablished())
+            {
+                await dbConnection.OpenAsync();
+                await dbConnection.ChangeDatabaseAsync(config.CatalogName);
+                string query = "SELECT * FROM Products";
+                SqlCommand command = new SqlCommand(query, dbConnection);
+                SqlDataReader reader = await command.ExecuteReaderAsync();
+
+                while (await reader.ReadAsync())
+                {
+                    products.Add(new()
+                    {
+                        ProductId = reader.GetInt32(0),
+                        Name = reader.GetString(1),
+                        Price = reader.GetDouble(2)
+                    });
+                }
+            }
+            else
+                return new();
+
+            return products;
+        }
+
+        public static async Task<List<Geography>> GetGeographiesAsync()
+        {
+            List<Geography> geographies = new();
+
+            if (await ConnectionWasEstablished())
+            {
+                await dbConnection.OpenAsync();
+                await dbConnection.ChangeDatabaseAsync(config.CatalogName);
+                string query = "SELECT * FROM Geographies";
+                SqlCommand command = new SqlCommand(query, dbConnection);
+                SqlDataReader reader = await command.ExecuteReaderAsync();
+
+                while (await reader.ReadAsync())
+                {
+                    geographies.Add(new()
+                    {
+                        GeographyId = reader.GetInt32(0),
+                        Region = reader.GetString(1),
+                        Province = reader.GetString(2),
+                        Municipality = reader.GetString(3),
+                        Location = reader.GetString(4),
+                        PostalCode = reader.GetString(5)
+                    });
+                }
+            }
+            else
+                return new();
+
+            return geographies;
+        }
     }
 }

@@ -65,5 +65,7 @@ namespace DataGenerator.Helpers
 
 			return geographies.Count;
 		}
+
+        public static async Task<List<Geography>> GetGeographiesFromDB() => await DataAccessHelper.GetGeographiesAsync();
     }
 }

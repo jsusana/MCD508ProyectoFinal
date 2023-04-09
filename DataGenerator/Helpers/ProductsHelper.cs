@@ -67,5 +67,7 @@ namespace DataGenerator.Helpers
 
             return products.Count;
         }
+
+        public static async Task<List<Product>> GetProductsFromDB() => await DataAccessHelper.GetProductsAsync();
     }
 }

@@ -49,5 +49,7 @@ namespace DataGenerator.Helpers
 
             return sellers.Count;
         }
+
+        public static async Task<List<Seller>> GetSellersFromDB() => await DataAccessHelper.GetSellersAsync();
     }
 }

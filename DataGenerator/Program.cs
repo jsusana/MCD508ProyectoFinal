@@ -92,6 +92,23 @@ if (recordsAdded <= 0)
 
 Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] Sellers table has been generated ({recordsAdded} records)...\n");
 
+// Retrieving Geographies, Products and Sellers data from database
+Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] Retrieving Geographies, Products and Sellers data from database...");
+
+List<Geography> geographies = await GeographiesHelper.GetGeographiesFromDB();
+List<Product> products = await ProductsHelper.GetProductsFromDB();
+List<Seller> sellers = await SellersHelper.GetSellersFromDB();
+
+if (!geographies.Any() || !products.Any() || !sellers.Any())
+{
+    Console.ForegroundColor = ConsoleColor.White;
+    Console.BackgroundColor = ConsoleColor.Red;
+    Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] ERROR! An error has ocurred during 'Retrieving Geographies, Products and Sellers data from database'...\n");
+    Console.ResetColor();
+}
+
+Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] Retrieved data from the database {{Geographies: {geographies.Count}, Products: {products.Count}, Sellers: {sellers.Count} }}...\n");
+
 // End of the process
 Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] The process has ended\n");
 Console.WriteLine("Press any key to exit...");
