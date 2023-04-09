@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace DataGenerator.Models
 {
@@ -13,6 +15,14 @@ namespace DataGenerator.Models
         public string LastName { get; set; }
         public DateTime AdmissionDate { get; set; }
         public DateTime? EgressDate { get; set; }
+
+        public string GetInsertQuery()
+        {
+            StringBuilder query = new();
+            query.AppendLine("INSERT INTO Sellers (FirstName, LastName, AdmissionDate, EgressDate)");
+            query.AppendLine($"VALUES ('{FirstName}', '{LastName}', '{AdmissionDate}', {(EgressDate.HasValue ? $"'{EgressDate}'" : "NULL")})");
+            return query.ToString();
+        }
 
         public static string GetCreateTableQuery()
         {

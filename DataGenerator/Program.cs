@@ -12,6 +12,7 @@ DatabaseConfig dbConfig = new()
 
 string ZipCodesDR_CsvPath = @"C:\maestriacienciadatos\databases\proyecto_final\datasets\ZipCodes_DR.csv";
 string AppleProducts_CsvPath = @"C:\maestriacienciadatos\databases\proyecto_final\datasets\AppleProducts.csv";
+int sellersCount = 50;
 
 // Process headers
 Console.WriteLine("Apple Store DR Data Generator");
@@ -76,6 +77,20 @@ if (recordsAdded <= 0)
 
 Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] Products table has been generated ({recordsAdded} records)...\n");
 
+
+// Generating the Seller Table from random generated data
+Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] Generating Seller Table from random generated data...");
+recordsAdded = await SellersHelper.GenerateSellersTable(20);
+
+if (recordsAdded <= 0)
+{
+    Console.ForegroundColor = ConsoleColor.White;
+    Console.BackgroundColor = ConsoleColor.Red;
+    Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] ERROR! An error has ocurred during 'Generating Seller Table from random generated data'...\n");
+    Console.ResetColor();
+}
+
+Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] Sellers table has been generated ({recordsAdded} records)...\n");
 
 // End of the process
 Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] The process has ended\n");

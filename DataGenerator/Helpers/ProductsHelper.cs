@@ -34,7 +34,7 @@ namespace DataGenerator.Helpers
                     if (items.Any() && items.Length == 2)
                     {
                         if (!double.TryParse(items[1], out price))
-                            price = GetRandomPrice(100, 1200);
+                            price = new Random().Next(100, 1200);
                     }
 
                     products.Add(new()
@@ -50,14 +50,6 @@ namespace DataGenerator.Helpers
             {
                 return new();
             }
-        }
-
-        private static double GetRandomPrice(double lowerBound, double upperBound)
-        {
-            var random = new Random();
-            var rDouble = random.NextDouble();
-            var rRangeDouble = rDouble * (upperBound - lowerBound) + lowerBound;
-            return rRangeDouble;
         }
 
         public static async Task<int> GenerateProductsTable(string path)
