@@ -77,7 +77,7 @@ namespace DataGenerator.Helpers
                 else
                     return false;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -114,6 +114,7 @@ namespace DataGenerator.Helpers
             else
                 return new();
 
+            await dbConnection.CloseAsync();
             return sellers;
         }
 
@@ -135,13 +136,14 @@ namespace DataGenerator.Helpers
                     {
                         ProductId = reader.GetInt32(0),
                         Name = reader.GetString(1),
-                        Price = reader.GetDouble(2)
+                        Price = Decimal.ToDouble(reader.GetDecimal(2))
                     });
                 }
             }
             else
                 return new();
 
+            await dbConnection.CloseAsync();
             return products;
         }
 
@@ -173,6 +175,7 @@ namespace DataGenerator.Helpers
             else
                 return new();
 
+            await dbConnection.CloseAsync();
             return geographies;
         }
     }

@@ -12,7 +12,8 @@ DatabaseConfig dbConfig = new()
 
 string ZipCodesDR_CsvPath = @"C:\maestriacienciadatos\databases\proyecto_final\datasets\ZipCodes_DR.csv";
 string AppleProducts_CsvPath = @"C:\maestriacienciadatos\databases\proyecto_final\datasets\AppleProducts.csv";
-int sellersCount = 50;
+int sellersCount = 33;
+int ordersCount = 10000;
 
 // Process headers
 Console.WriteLine("Apple Store DR Data Generator");
@@ -43,6 +44,7 @@ if (!await DataAccessHelper.InitializeDatabase())
     Console.BackgroundColor = ConsoleColor.Red;
     Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] ERROR! An error has ocurred during 'Creating new database catalog'...\n");
     Console.ResetColor();
+    return;
 }
 
 Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] The new Database catalog has been created...\n");
@@ -58,6 +60,7 @@ if (recordsAdded <= 0)
     Console.BackgroundColor = ConsoleColor.Red;
     Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] ERROR! An error has ocurred during 'Generating Geographies Table from CSV'...\n");
     Console.ResetColor();
+    return;
 }
 
 Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] Geographies table has been generated ({recordsAdded} records)...\n");
@@ -73,6 +76,7 @@ if (recordsAdded <= 0)
     Console.BackgroundColor = ConsoleColor.Red;
     Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] ERROR! An error has ocurred during 'Generating Products Table from CSV'...\n");
     Console.ResetColor();
+    return;
 }
 
 Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] Products table has been generated ({recordsAdded} records)...\n");
@@ -80,7 +84,7 @@ Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] Products table has been
 
 // Generating the Seller Table from random generated data
 Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] Generating Seller Table from random generated data...");
-recordsAdded = await SellersHelper.GenerateSellersTable(20);
+recordsAdded = await SellersHelper.GenerateSellersTable(sellersCount);
 
 if (recordsAdded <= 0)
 {
@@ -88,6 +92,7 @@ if (recordsAdded <= 0)
     Console.BackgroundColor = ConsoleColor.Red;
     Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] ERROR! An error has ocurred during 'Generating Seller Table from random generated data'...\n");
     Console.ResetColor();
+    return;
 }
 
 Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] Sellers table has been generated ({recordsAdded} records)...\n");
@@ -105,9 +110,25 @@ if (!geographies.Any() || !products.Any() || !sellers.Any())
     Console.BackgroundColor = ConsoleColor.Red;
     Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] ERROR! An error has ocurred during 'Retrieving Geographies, Products and Sellers data from database'...\n");
     Console.ResetColor();
+    return;
 }
 
 Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] Retrieved data from the database {{Geographies: {geographies.Count}, Products: {products.Count}, Sellers: {sellers.Count} }}...\n");
+
+// Generating the Orders Table from random generated data
+Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] Generating Orders Table from random generated data...");
+recordsAdded = await OrdersHelper.GenerateOrdersTable(ordersCount, geographies, products, sellers);
+
+if (recordsAdded <= 0)
+{
+    Console.ForegroundColor = ConsoleColor.White;
+    Console.BackgroundColor = ConsoleColor.Red;
+    Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] ERROR! An error has ocurred during 'Generating Orders Table from random generated data'...\n");
+    Console.ResetColor();
+}
+
+Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] Orders table has been generated ({recordsAdded} records)...\n");
+
 
 // End of the process
 Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] The process has ended\n");
