@@ -11,6 +11,7 @@ DatabaseConfig dbConfig = new()
 };
 
 string ZipCodesDR_CsvPath = @"C:\maestriacienciadatos\databases\proyecto_final\datasets\ZipCodes_DR.csv";
+string AppleProducts_CsvPath = @"C:\maestriacienciadatos\databases\proyecto_final\datasets\AppleProducts.csv";
 
 // Process headers
 Console.WriteLine("Apple Store DR Data Generator");
@@ -48,9 +49,9 @@ Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] The new Database catalo
 
 // Generating the Geographies Table from the CSV
 Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] Generating Geographies Table from CSV...");
-int GeographiesAdded = await GeographiesHelper.GenerateGeographiesTable(ZipCodesDR_CsvPath);
+int recordsAdded = await GeographiesHelper.GenerateGeographiesTable(ZipCodesDR_CsvPath);
 
-if (GeographiesAdded <= 0)
+if (recordsAdded <= 0)
 {
     Console.ForegroundColor = ConsoleColor.White;
     Console.BackgroundColor = ConsoleColor.Red;
@@ -58,7 +59,23 @@ if (GeographiesAdded <= 0)
     Console.ResetColor();
 }
 
-Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] Geographies table has been generated ({GeographiesAdded} records)...\n");
+Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] Geographies table has been generated ({recordsAdded} records)...\n");
+
+
+// Generating the Products Table from the CSV
+Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] Generating Products Table from CSV...");
+recordsAdded = await ProductsHelper.GenerateProductsTable(AppleProducts_CsvPath);
+
+if (recordsAdded <= 0)
+{
+    Console.ForegroundColor = ConsoleColor.White;
+    Console.BackgroundColor = ConsoleColor.Red;
+    Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] ERROR! An error has ocurred during 'Generating Products Table from CSV'...\n");
+    Console.ResetColor();
+}
+
+Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] Products table has been generated ({recordsAdded} records)...\n");
+
 
 // End of the process
 Console.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss}] The process has ended\n");
