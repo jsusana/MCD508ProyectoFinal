@@ -5,16 +5,27 @@ VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataGenerator", "DataGenerator.csproj", "{9A3C4E3B-4092-41F0-A8F5-6FFFC09986A3}"
 EndProject
+Project("{C9674DCB-5085-4A16-B785-4C70DD1589BD}") = "AppleStoreDW", "..\AppleStoreDW\AppleStoreDW.dtproj", "{74A5737B-20F1-4220-95C3-5CD28F40519B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Development|Any CPU = Development|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9A3C4E3B-4092-41F0-A8F5-6FFFC09986A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9A3C4E3B-4092-41F0-A8F5-6FFFC09986A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A3C4E3B-4092-41F0-A8F5-6FFFC09986A3}.Development|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A3C4E3B-4092-41F0-A8F5-6FFFC09986A3}.Development|Any CPU.Build.0 = Debug|Any CPU
 		{9A3C4E3B-4092-41F0-A8F5-6FFFC09986A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A3C4E3B-4092-41F0-A8F5-6FFFC09986A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74A5737B-20F1-4220-95C3-5CD28F40519B}.Debug|Any CPU.ActiveCfg = Development
+		{74A5737B-20F1-4220-95C3-5CD28F40519B}.Debug|Any CPU.Build.0 = Development
+		{74A5737B-20F1-4220-95C3-5CD28F40519B}.Development|Any CPU.ActiveCfg = Development
+		{74A5737B-20F1-4220-95C3-5CD28F40519B}.Development|Any CPU.Build.0 = Development
+		{74A5737B-20F1-4220-95C3-5CD28F40519B}.Release|Any CPU.ActiveCfg = Development
+		{74A5737B-20F1-4220-95C3-5CD28F40519B}.Release|Any CPU.Build.0 = Development
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
